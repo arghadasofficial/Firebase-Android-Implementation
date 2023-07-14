@@ -58,7 +58,9 @@ class AuthActivity : AppCompatActivity(), LoginListener, SignUpListener {
     }
 
     override fun onSignUpSuccess() {
-        // TODO
+        intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onSignUpError(message: String) {
