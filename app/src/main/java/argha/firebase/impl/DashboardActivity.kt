@@ -21,7 +21,11 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
         init()
 
-        emailText.text = auth.currentUser?.email
+        if(auth.currentUser?.email != null) {
+            emailText.text = auth.currentUser?.email
+        } else {
+            emailText.text = auth.currentUser?.phoneNumber
+        }
 
         logoutBtn.setOnClickListener(View.OnClickListener {
             logoutFromSystem()

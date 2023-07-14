@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import argha.firebase.impl.adapters.AuthPagerAdapter
 import argha.firebase.impl.fragments.LoginListener
+import argha.firebase.impl.fragments.PhoneAuthListener
 import argha.firebase.impl.fragments.SignUpListener
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthActivity : AppCompatActivity(), LoginListener, SignUpListener {
+class AuthActivity : AppCompatActivity(), LoginListener, SignUpListener, PhoneAuthListener {
 
     private lateinit var auth : FirebaseAuth
     private lateinit var tabLayout : TabLayout
@@ -27,7 +28,7 @@ class AuthActivity : AppCompatActivity(), LoginListener, SignUpListener {
     }
 
     private fun setupTabsWithViewPager() {
-        viewPager.adapter = AuthPagerAdapter(supportFragmentManager, this, this)
+        viewPager.adapter = AuthPagerAdapter(supportFragmentManager, this, this, this)
         tabLayout.setupWithViewPager(viewPager)
     }
 
@@ -64,6 +65,16 @@ class AuthActivity : AppCompatActivity(), LoginListener, SignUpListener {
     }
 
     override fun onSignUpError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPhoneAuthSuccess() {
+        intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun onPhoneAuthFailed(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
