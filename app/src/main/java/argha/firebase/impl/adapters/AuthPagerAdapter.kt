@@ -9,7 +9,11 @@ import argha.firebase.impl.fragments.SignUpListener
 import argha.firebase.impl.fragments.SignupFragment
 import java.lang.IllegalArgumentException
 
-class AuthPagerAdapter(fm: FragmentManager, private val loginListener: LoginListener, private val signUpListener: SignUpListener) : FragmentStatePagerAdapter(fm) {
+class AuthPagerAdapter(
+    fm: FragmentManager,
+    private val loginListener: LoginListener,
+    private val signUpListener: SignUpListener
+) : FragmentStatePagerAdapter(fm) {
 
     private val tabs = arrayOf("Login", "SignUp")
 
@@ -22,7 +26,7 @@ class AuthPagerAdapter(fm: FragmentManager, private val loginListener: LoginList
     }
 
     override fun getItem(position: Int): Fragment {
-        return when(position) {
+        return when (position) {
             0 -> LoginFragment.newInstance("", "", loginListener)
             1 -> SignupFragment.newInstance("", "", signUpListener)
             else -> throw IllegalArgumentException("Invalid Tab Position")
